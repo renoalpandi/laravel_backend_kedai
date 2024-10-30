@@ -72,6 +72,37 @@
     <!-- Template JS File -->
     <script src="{{ asset('js/scripts.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
+    // Tambahkan script ini di bagian @push('scripts') pada layout atau di bagian bawah file blade
+<script src="{{ asset('library/jquery.uploadPreview.min.js') }}"></script>
+<script>
+$(function() {
+    $.uploadPreview({
+        input_field: "#image-upload",
+        preview_box: "#image-preview",
+        label_field: "#image-label",
+        label_default: "Choose File",
+        label_selected: "Change File",
+        no_label: false,
+        success_callback: null
+    });
+});
+
+// Alternatif jika tidak menggunakan library uploadPreview
+function previewImage() {
+    const image = document.querySelector('#image-upload');
+    const imgPreview = document.querySelector('.image-preview');
+    const label = document.querySelector('#image-label');
+
+    label.style.display = 'none';
+
+    const oFReader = new FileReader();
+    oFReader.readAsDataURL(image.files[0]);
+
+    oFReader.onload = function(oFREvent) {
+        imgPreview.style.backgroundImage = 'url(' + oFREvent.target.result + ')';
+    }
+}
+</script>
 </body>
 
 </html>
